@@ -1,12 +1,14 @@
 'use client'
 
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { Todo } from '../page'
 
 type Props = {}
 
 const TodosPage = (props: Props) => {
+	const queryClient = useQueryClient()
+
 	const { isError, isPending, isSuccess, error, mutate }: any = useMutation({
 		mutationKey: ['createTodo'],
 		mutationFn: (newTodo: Todo) => {
@@ -20,6 +22,7 @@ const TodosPage = (props: Props) => {
 		},
 		onSuccess: (data, variable, context) => {
 			console.log('Success', data)
+			queryClient.invalidateQueries({ queryKey: ['readTodos'] })
 		}
 	})
 
