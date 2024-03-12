@@ -61,7 +61,8 @@ export default function Home() {
 		queryFn: () =>
 			fetch('https://jsonplaceholder.typicode.com/users').then((res) =>
 				res.json()
-			)
+			),
+		enabled: !!data
 	})
 
 	if (isLoading) {
