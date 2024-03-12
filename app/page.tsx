@@ -47,6 +47,19 @@ export default function Home() {
 			)
 	})
 
+	const {
+		data: usersData,
+		isLoading: isUsersLoading,
+		isError: isUsersError,
+		isSuccess: isUsersSuccess
+	} = useQuery<any>({
+		queryKey: ['users'],
+		queryFn: () =>
+			fetch('https://jsonplaceholder.typicode.com/users').then((res) =>
+				res.json()
+			)
+	})
+
 	if (isLoading) {
 		return (
 			<div className='min-h-screen flex items-center justify-center bg-orange-200'>
@@ -64,6 +77,15 @@ export default function Home() {
 				{data.map((todo: Todo) => (
 					<p key={todo.id} className='text-neutral-700'>
 						{todo.title}
+					</p>
+				))}
+			</div>
+
+			<h1 className='text-xl mt-9'>Users</h1>
+			<div className=''>
+				{usersData.map((user: User) => (
+					<p key={user.id} className='text-neutral-700'>
+						{user.name}
 					</p>
 				))}
 			</div>
