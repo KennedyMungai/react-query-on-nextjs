@@ -1,6 +1,6 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
+import { useIsFetching, useQuery } from '@tanstack/react-query'
 
 interface Todo {
 	id: number
@@ -39,6 +39,8 @@ interface Geo {
 }
 
 export default function Home() {
+	const isFetching = useIsFetching()
+
 	const { data, isLoading, isError, isSuccess } = useQuery<Todo[]>({
 		queryKey: ['todos'],
 		queryFn: () =>
@@ -65,7 +67,7 @@ export default function Home() {
 		enabled: !!data
 	})
 
-	if (isLoading) {
+	if (isFetching) {
 		return (
 			<div className='min-h-screen flex items-center justify-center bg-orange-200'>
 				<p className='text-red-500 font-bold text-6xl animate-pulse'>
