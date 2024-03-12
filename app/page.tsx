@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 interface Todo {
 	id: number
 	title: string
-	completed: boolean
+	// completed: boolean
 }
 
 interface User {
@@ -44,7 +44,9 @@ export default function Home() {
 		queryFn: () =>
 			fetch('https://jsonplaceholder.typicode.com/todos').then((res) =>
 				res.json()
-			)
+			),
+		select: (todos) =>
+			todos.map((todo) => ({ id: todo.id, title: todo.title }))
 	})
 
 	const {
