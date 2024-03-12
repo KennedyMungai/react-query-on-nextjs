@@ -11,6 +11,15 @@ const TodosPage = (props: Props) => {
 		mutationKey: ['createTodo'],
 		mutationFn: (newTodo: Todo) => {
 			return axios.post('https://localhost:3001/todos', newTodo)
+		},
+		onMutate: (variables) => {
+			console.log('A mutation is about to happen')
+		},
+		onError: (error, variables, context) => {
+			console.log('Something went wrong', error.message)
+		},
+		onSuccess: (data, variable, context) => {
+			console.log('Success', data)
 		}
 	})
 
