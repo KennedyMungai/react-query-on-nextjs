@@ -1,6 +1,6 @@
 'use client'
 
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { Todo } from '../page'
 
@@ -8,10 +8,23 @@ type Props = {}
 
 const TodosPage = (props: Props) => {
 	const { isError, isPending, isSuccess, error, mutate }: any = useMutation({
+		mutationKey: ['createTodo'],
 		mutationFn: (newTodo: Todo) => {
 			return axios.post('https://localhost:3001/todos', newTodo)
 		}
 	})
+
+	const {
+		data: todosData,
+		isLoading: isTodosLoading,
+		isError: isTodosError
+	} = useQuery({
+		queryKey: ['readTodos'],
+		queryFn: () =>
+			axios.get('https://localhost:3001/todos').then((res) => res.data)
+	})
+
+	console.log(todosData)
 
 	return (
 		<div>
@@ -25,14 +38,17 @@ const TodosPage = (props: Props) => {
 					{isSuccess ? <div>Todo Added</div> : null}
 
 					<button
-						onClick={() =>
-							mutate({ id: new Date(), title: 'Do Laundry' })
-						}
+						onClick={() => mutate({ id: 556, title: 'Do Laundry' })}
 					>
 						Create Todo
 					</button>
 				</>
 			)}
+			<div>
+				{todosData?.map((todo: Todo) => (
+					<p key={todo.id}>{todo.title}</p>
+				))}
+			</div>
 		</div>
 	)
 }
