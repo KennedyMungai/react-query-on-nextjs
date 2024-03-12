@@ -28,11 +28,13 @@ export default function Home() {
 	}
 
 	return (
-		<main className='min-h-screen bg-orange-200'>
+		<main className='min-h-screen bg-orange-200 flex flex-col items-center'>
 			<h1 className='text-xl'>Todos</h1>
 			<div className=''>
 				{data.map((todo: Todo) => (
-					<p key={todo.id}>{todo.title}</p>
+					<p key={todo.id} className='text-neutral-700'>
+						{todo.title}
+					</p>
 				))}
 			</div>
 		</main>
