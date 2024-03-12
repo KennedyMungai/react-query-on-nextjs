@@ -49,6 +49,8 @@ export default function Home() {
 			todos.map((todo) => ({ id: todo.id, title: todo.title }))
 	})
 
+	console.log(data)
+
 	const {
 		data: usersData,
 		isLoading: isUsersLoading,
