@@ -2,6 +2,12 @@
 
 import { useQuery } from '@tanstack/react-query'
 
+interface Todo {
+	id: number
+	title: string
+	completed: boolean
+}
+
 export default function Home() {
 	const { data, isLoading, isError, isSuccess } = useQuery<any>({
 		queryKey: ['todos'],
@@ -21,5 +27,14 @@ export default function Home() {
 		)
 	}
 
-	return <main className='min-h-screen bg-orange-200'></main>
+	return (
+		<main className='min-h-screen bg-orange-200'>
+			<h1 className='text-xl'>Todos</h1>
+			<div className=''>
+				{data.map((todo: Todo) => (
+					<p key={todo.id}>{todo.title}</p>
+				))}
+			</div>
+		</main>
+	)
 }
