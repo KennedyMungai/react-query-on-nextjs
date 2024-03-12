@@ -39,7 +39,7 @@ interface Geo {
 }
 
 export default function Home() {
-	const { data, isLoading, isError, isSuccess } = useQuery<any>({
+	const { data, isLoading, isError, isSuccess } = useQuery<Todo[]>({
 		queryKey: ['todos'],
 		queryFn: () =>
 			fetch('https://jsonplaceholder.typicode.com/todos').then((res) =>
@@ -52,7 +52,7 @@ export default function Home() {
 		isLoading: isUsersLoading,
 		isError: isUsersError,
 		isSuccess: isUsersSuccess
-	} = useQuery<any>({
+	} = useQuery<User[]>({
 		queryKey: ['users'],
 		queryFn: () =>
 			fetch('https://jsonplaceholder.typicode.com/users').then((res) =>
@@ -74,7 +74,7 @@ export default function Home() {
 		<main className='min-h-screen bg-orange-200 flex flex-col items-center'>
 			<h1 className='text-xl'>Todos</h1>
 			<div className=''>
-				{data.map((todo: Todo) => (
+				{data?.map((todo: Todo) => (
 					<p key={todo.id} className='text-neutral-700'>
 						{todo.title}
 					</p>
@@ -83,7 +83,7 @@ export default function Home() {
 
 			<h1 className='text-xl mt-9'>Users</h1>
 			<div className=''>
-				{usersData.map((user: User) => (
+				{usersData?.map((user: User) => (
 					<p key={user.id} className='text-neutral-700'>
 						{user.name}
 					</p>
