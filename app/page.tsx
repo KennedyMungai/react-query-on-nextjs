@@ -2,13 +2,13 @@
 
 import { useIsFetching, useQuery } from '@tanstack/react-query'
 
-interface Todo {
+export interface Todo {
 	id: number
 	title: string
 	// completed: boolean
 }
 
-interface User {
+export interface User {
 	id: number
 	name: string
 	username: string
